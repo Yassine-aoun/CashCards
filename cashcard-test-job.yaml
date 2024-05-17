@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cashcard-test-job
+spec:
+  activeDeadlineSeconds: 600
+  backoffLimit: 4
+  template:
+    spec:
+      containers:
+        - name: cashcard-test
+          image: yassineaoun22/cashcard:latest
+          command: ["sh", "-c", "./gradlew test"]
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+      restartPolicy: Never
